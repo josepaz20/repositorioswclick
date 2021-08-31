@@ -73,6 +73,21 @@ function setTablaAmpliaciones($datos = array()) {
     }
     $titulo = 'AMPLIACIONES DE RED';
 }
+function setListaAvances($datos = array()) { 
+   $tablaAmpliciones = '';   
+    foreach ($datos as $registro) {
+        $tablaAmpliciones .= '<tr>';
+        $tablaAmpliciones .= '<td>'.$registro['idAvance'].'</td>';        
+        $tablaAmpliciones .= '<td> <a href="javascript:verDetalle(' . $registro['idAvance'] . ')" title="VER DETALLE"><i class="fa fa-eye"></i></a> </td>';
+        $tablaAmpliciones .= '<td>'.$registro['avance'].'</td>';
+        $tablaAmpliciones .= '<td>'.$registro['estado'].'</td>';
+        $tablaAmpliciones .= '<td>'.$registro['registradopor'].'</td>';
+        $tablaAmpliciones .= '<td>'.$registro['fechahorareg'].'</td>';
+       
+        $tablaAmpliciones .= '</tr>';
+    }    
+    return $tablaAmpliciones;
+}
 
 function setListaDepartamentos($datos = array(), $idDepartamento = 0) {
     $lista = '<option value="">Seleccione...</option>';

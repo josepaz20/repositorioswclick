@@ -28,13 +28,43 @@ function setFormulario(respuesta) {
     $("#divContenido").html(respuesta);
     $('#modalFormulario').modal('show');
 }
+function setFormularioAvance(respuesta) {
+    $("#divContenido").html(respuesta);
+    
+            oTable = $('#datatableAvance').dataTable({
+                    "iDisplayLength": 25,
+                    "sPaginationType": "full_numbers",
+                    "oLanguage": {
+                        "sLengthMenu": "MOSTRAR: _MENU_ REGISTROS POR PAGINA",
+                        "sZeroRecords": "NO SE HA ENCONTRADO INFORMACION",
+                        "sInfo": "MOSTRANDO <b>_START_</b> A <b>_END_</b> REGISTROS <br>TOTAL REGISTROS: <b>_TOTAL_</b> REGISTROS</b>",
+                        "sInfoEmpty": "MOSTRANDO 0 A 0 REGISTROS",
+                        "sInfoFiltered": "(FILTRADOS DE UN TOTAL DE <b>_MAX_</b> REGISTROS)",
+                        "sLoadingRecords": "CARGANDO...",
+                        "sProcessing": "EN PROCESO...",
+                        "sSearch": "BUSCAR:",
+                        "sEmptyTable": "NO HAY INFORMACION DISPONIBLE PARA LA TABLA",
+                        "oPaginate": {
+                            "sFirst": "Inicio",
+                            "sLast": "Fin",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
+                    "aaSorting": [[0, "desc"]]
+                });
+    
+    
+    
+    $('#modalFormulario').modal('show');
+}
 
 function verDetalle(idAmpliacion) {
     $.get('detalle', {idAmpliacion: idAmpliacion}, setFormulario);
     bloqueoAjax();
 }
 function verAvance(idAmpliacion) {
-    $.get('avance', {idAmpliacion: idAmpliacion}, setFormulario);
+    $.get('avance', {idAmpliacion: idAmpliacion}, setFormularioAvance);
     bloqueoAjax();
 }
 function verActualizar(idAmpliacion) {    

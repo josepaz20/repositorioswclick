@@ -83,13 +83,13 @@ function controlador() {
             }
             echo verVistaAjax($evento, $datos);
             break;
-        case vAVANCE:
+        case vAVANCE:            
             $infoAmpliacion = array();
-            if (array_key_exists('idAmpliacion', $datos)) {
-                $ampliacionRedOBJ->getAmpliacionRed($datos['idAmpliacion']);
-                $infoAmpliacion = $ampliacionRedOBJ->registros[0];
+            if (array_key_exists('idAmpliacion', $datos)) {            
+                $ampliacionRedOBJ->getAvances($datos['idAmpliacion']);                                  
+                $datos['tablaAvances'] = setListaAvances($ampliacionRedOBJ->registros);
             }
-            echo verVistaAjax($evento, $infoAmpliacion);
+            echo verVistaAjax($evento, $datos);
             break;
         case GET_MUNICIPIO:
             if (array_key_exists('idDpto', $datos)) {

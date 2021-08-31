@@ -68,7 +68,28 @@ class AmpliacionRed extends AccesoDatos {
         return $this->consultarBD();
     }
 
-//------------------------------------------------------------------------------    
+//------------------------------------------------------------------------------ 
+
+    public function getAvances($idAmpliacion = 0) {
+        $this->consulta = "SELECT 
+                            avance_ampliacionred.idAvance,
+                            avance_ampliacionred.idAmpliacion,
+                            avance_ampliacionred.avance,
+                            avance_ampliacionred.estado,
+                            avance_ampliacionred.registradopor,
+                            avance_ampliacionred.fechahorareg,
+                            avance_ampliacionred.modificadopor,
+                            avance_ampliacionred.fechahorareg,
+                            avance_ampliacionred.fechahoramod                                                   
+                            FROM avance_ampliacionred
+                            INNER JOIN ampliacion_red ON avance_ampliacionred.idAmpliacion = ampliacion_red.idAmpliacion
+                           
+                           WHERE avance_ampliacionred.idAmpliacion = $idAmpliacion";
+        //print_r($this->consulta);
+        return $this->consultarBD();
+    }
+
+//------------------------------------------------------------------------------   
 
     public function registrar($datos = array()) {
         foreach ($datos as $campo => $vlr) {
@@ -79,12 +100,13 @@ class AmpliacionRed extends AccesoDatos {
         $fechahorareg = date('Y-m-d H:i:s');
         $consultas[] = "INSERT INTO ampliacion_red(idMcpo, direccion, coordenadas, justificacion, contusuariosbenficio, beneficioeconomico, estado, registradopor, modificadopor, confirmadopor, fechahorareg, fechahoramod, fechahoraconfirm)
                         VALUES($idMcpo, '$direccion', '$coordenadas', '$justificacion', $contusuariosbenficio, $beneficioeconomico, 'Registrado', '$registradopor', '', '', '$fechahorareg', '0000-00-00 00:00:00', '0000-00-00 00:00:00')";
+
         return $this->ejecutarTransaccion($consultas);
     }
 
 //------------------------------------------------------------------------------    
- 
-public function actualizar($datos = array()) {
+
+    public function actualizar($datos = array()) {
         foreach ($datos as $campo => $vlr) {
             $$campo = $vlr;
         }
@@ -92,8 +114,10 @@ public function actualizar($datos = array()) {
         $registradopor = $_SESSION['NOMBRES_APELLIDO_USUARIO'];
         $fechahorareg = date('Y-m-d H:i:s');
         $consultas[] = "UPDATE ampliacion_red VALUES(NULL, '$idMcpo', '$direccion', '$coordenadas', '$justificacion','$contusuariosbenficio','$beneficioeconomico', '$estado',    '$registradopor', '$modificadopor', '$confirmadopor', '$fechahorareg',  '$fechahoramod', '$fechahoraconfirm')";
+        // print_r($consultas);
         return $this->ejecutarTransaccion($consultas);
     }
+
 //------------------------------------------------------------------------------
     public function getDepartamentos($filtro = '') {
         $this->consulta = "SELECT 
@@ -104,10 +128,10 @@ public function actualizar($datos = array()) {
                            ";
         if ($filtro != '') {
             $this->consulta .= ' ' . $filtro;
-        }        
-        
+        }
+
         //echo $this->consulta;
-        $numRegistros = $this->consultarBD();        
+        $numRegistros = $this->consultarBD();
         if ($numRegistros > 0) {
             return true;
         } else {
@@ -135,7 +159,7 @@ public function actualizar($datos = array()) {
     }
 
 //------------------------------------------------------------------------------ 
-    public function setUpdate($datos = array(),$idAmpliacion) {
+    public function setUpdate($datos = array(), $idAmpliacion) {
         foreach ($datos as $campo => $vlr) {
             $$campo = $vlr;
         }
@@ -149,9 +173,10 @@ public function actualizar($datos = array()) {
 
         $consultas[] = "UPDATE ampliacion_red SET idMcpo =$idMcpo, direccion='$direccion', coordenadas= '$coordenadas', justificacion='$justificacion', contusuariosbenficio='$contusuariosbenficio',beneficioeconomico='$beneficioeconomico', estado= '$estado',  modificadopor='$modificadopor', confirmadopor='$confirmadopor',   fechahoramod='$fechahoramod', fechahoraconfirm='$fechahoraconfirm' WHERE idAmpliacion=$idAmpliacion";
 
-       // print_r($consultas);
+        // print_r($consultas);
         return $this->ejecutarTransaccion($consultas);
     }
+
 }
 
 ?>
