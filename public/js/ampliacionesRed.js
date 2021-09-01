@@ -57,6 +57,7 @@ function setFormularioAvance(respuesta) {
     
     
     $('#modalFormulario').modal('show');
+    registrar()
 }
 
 function verDetalle(idAmpliacion) {
@@ -87,6 +88,14 @@ function validarEditar() {
     if (confirm("   DESEA ACTUALIZAR ESTA AMPLIACION DE RED ? ")) {
         bloqueoAjax();
         return true;
+    } else {
+        return false;
+    }
+}
+function validarInsavan() {
+    if (confirm(" DESEA REGISTRAR ESTE AVANCE? ")) {
+        bloqueoAjax();
+        return verAvance;
     } else {
         return false;
     }

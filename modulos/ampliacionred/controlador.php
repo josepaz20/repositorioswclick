@@ -21,7 +21,7 @@ function controlador() {
     $evento = '';
     $url = $_SERVER['REQUEST_URI'];
 
-    $peticiones = array(vINDEX, vREGISTRAR, vDETALLE, vACTUALIZAR, vAVANCE, INSERTAR, GET_MUNICIPIO, UPDATE);
+    $peticiones = array(vINDEX, vREGISTRAR, vDETALLE, vACTUALIZAR, vAVANCE, INSERTAR, INSAVAN, GET_MUNICIPIO, UPDATE);
 
     foreach ($peticiones as $peticion) {
         $url_peticion = MODULO . $peticion;
@@ -60,6 +60,15 @@ function controlador() {
             }
             header("location: /sw2click/modulos/ampliacionred/index?msg=$msg");
             break;
+        case INSAVAN:
+            $datos['idMcpo'] = 1;
+            echo 1;
+            $msg = 0;
+            if ($ampliacionRedOBJ->registraravance($datos)) {
+                $msg = 1;
+            }
+            header("location: /sw2click/modulos/ampliacionred/index?msg=$msg");
+            break;
         case vDETALLE:
             $infoAmpliacion = array();
             if (array_key_exists('idAmpliacion', $datos)) {
@@ -83,13 +92,14 @@ function controlador() {
             }
             echo verVistaAjax($evento, $datos);
             break;
-        case vAVANCE:            
+        case vAVANCE:
             $infoAmpliacion = array();
-            if (array_key_exists('idAmpliacion', $datos)) {            
-                $ampliacionRedOBJ->getAvances($datos['idAmpliacion']);                                  
+            if (array_key_exists('idAmpliacion', $datos)) {
+                $ampliacionRedOBJ->getAvances($datos['idAmpliacion']);
                 $datos['tablaAvances'] = setListaAvances($ampliacionRedOBJ->registros);
             }
             echo verVistaAjax($evento, $datos);
+            
             break;
         case GET_MUNICIPIO:
             if (array_key_exists('idDpto', $datos)) {
@@ -183,6 +193,8 @@ function getDatos() {
             $datos['fechahoramod'] = $_POST['fechahoramod'];
         if (array_key_exists('fechahoraconfirm', $_POST))
             $datos['fechahoraconfirm'] = $_POST['fechahoraconfirm'];
+        if (array_key_exists('avance', $_POST))
+            $datos['avance'] = $_POST['avance'];
     }else if ($_GET) {
         if (array_key_exists('idAmpliacion', $_GET))
             $datos['idAmpliacion'] = $_GET['idAmpliacion'];
@@ -233,6 +245,8 @@ function getDatos() {
             $datos['fechahoramod'] = $_GET['fechahoramod'];
         if (array_key_exists('fechahoraconfirm', $_GET))
             $datos['fechahoraconfirm'] = $_GET['fechahoraconfirm'];
+        if (array_key_exists('avance', $_GET))
+            $datos['avance'] = $_GET['avance'];
     }
 
     return $datos;

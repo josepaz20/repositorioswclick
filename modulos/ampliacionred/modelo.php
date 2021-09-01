@@ -104,7 +104,21 @@ class AmpliacionRed extends AccesoDatos {
         return $this->ejecutarTransaccion($consultas);
     }
 
-//------------------------------------------------------------------------------    
+//------------------------------------------------------------------------------
+    public function registraravance($datos = array()) {
+        foreach ($datos as $campo => $vlr) {
+            $$campo = $vlr;
+        }
+        $consultas = array();
+        $registradopor = $_SESSION['NOMBRES_APELLIDO_USUARIO'];
+        $fechahorareg = date('Y-m-d H:i:s');
+        $consultas[] = "INSERT INTO avance_ampliacionred(idAvance,idAmpliacion, avance,  estado, registradopor, modificadopor,  fechahorareg, fechahoramod)
+                        VALUES(NULL,$idAmpliacion, '$avance',  'Registrado', '$registradopor','',  '$fechahorareg', '0000-00-00 00:00:00')";
+       // print_r($consultas);
+        return $this->ejecutarTransaccion($consultas);
+    }
+
+//------------------------------------------------------------------------------  
 
     public function actualizar($datos = array()) {
         foreach ($datos as $campo => $vlr) {

@@ -12,6 +12,7 @@ define('vDETALLE', 'detalle');
 define('vACTUALIZAR', 'actualizar');
 define('vAVANCE', 'avance');
 define('INSERTAR', 'insertar');
+define('INSAVAN', 'insavan');
 define('GET_MUNICIPIO', 'getMunicipio');
 define('UPDATE', 'update');
 ?>
