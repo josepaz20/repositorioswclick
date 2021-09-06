@@ -5,7 +5,7 @@
 
 $diccionario = array(
     'subtitulo' => array(
-        vINDEX => 'Listado de Ampliaciones',
+        vINDEX => 'Listado de Viabilidades',
     ),
     'form_actions' => array(
     )
@@ -56,23 +56,24 @@ function setTablaAmpliaciones($datos = array()) {
     $permisoAprobar = array(1,);
     foreach ($datos as $registro) {
         $tablaAmpliciones .= '<tr>';
+        $tablaAmpliciones .= '<td>' . $registro['idViabilidad'] . '</td>';
         $tablaAmpliciones .= '<td>' . $registro['idAmpliacion'] . '</td>';
         $tablaAmpliciones .= '<td>';
-        $tablaAmpliciones .= '<a href="javascript:verDetalle(' . $registro['idAmpliacion'] . ')" title="VER DETALLE"><i class="fa fa-eye"></i></a>';
-        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verActualizar(' . $registro['idAmpliacion'] . ')" title="VER EDITAR"><i class="fa fa-edit"></i></a>';
-        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verAvance(' . $registro['idAmpliacion'] . ')" title="REGISTRAR AVANCE"><i class="fa fa-check"></i></a>';
-        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verViabilidad(' . $registro['idAmpliacion'] . ')" title="REGISTRAR VIABILIDAD"><i class="fa fa-area-chart "></i></a>';
+        
+        $tablaAmpliciones .= '<a href="javascript:verDetalle(' . $registro['idViabilidad'] . ')" title="VER DETALLE"><i class="fa fa-eye"></i></a>';
+        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verActualizar(' . $registro['idViabilidad'] . ')" title="VER EDITAR"><i class="fa fa-edit"></i></a>';
+        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verAvance(' . $registro['idViabilidad'] . ')" title="REGISTRAR AVANCE"><i class="fa fa-check"></i></a>';
+        $tablaAmpliciones .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:verViabilidad(' . $registro['idViabilidad'] . ')" title="REGISTRAR VIABILIDAD"><i class="fa fa-area-chart "></i></a>';
         $tablaAmpliciones .= '</td>';
-        $tablaAmpliciones .= '<td>' . strtoupper($registro['ubicacion']) . '</td>';
-        $tablaAmpliciones .= '<td>' . strtoupper($registro['direccion']) . '</td>';
-        $tablaAmpliciones .= '<td>' . $registro['contusuariosbenficio'] . '</td>';
-        $tablaAmpliciones .= '<td>' . number_format($registro['beneficioeconomico']) .'</td>';
+        $tablaAmpliciones .= '<td>' .number_format(strtoupper($registro['costototal'])). '</td>';
+        $tablaAmpliciones .= '<td>' . strtoupper($registro['observaciones']) . '</td>';
         $tablaAmpliciones .= '<td>' . $registro['estado'] . '</td>';
         $tablaAmpliciones .= '<td>' . $registro['registradopor'] . '</td>';
-        $tablaAmpliciones .= '<td>' . $registro['fechahorareg'] . '</td>';
+        $tablaAmpliciones .= '<td>' . $registro['modificadopor'] . '</td>';
+        
         $tablaAmpliciones .= '</tr>';
     }
-    $titulo = 'AMPLIACIONES DE RED';
+    $titulo = 'VIABILIADES DE AMPLIACION DE RED';
 }
 function setListaAvances($datos = array()) { 
    $tablaAmpliciones = '';   
@@ -98,6 +99,16 @@ function setListaDepartamentos($datos = array(), $idDepartamento = 0) {
         } else {
             $lista .= '<option value="' . $registro['idDpto'] . '">' . $registro['nombreDpto'] . '</option>';
         }
+    }
+    return $lista;
+}
+
+function setListaRecursos($datos = array()) {
+    $lista = '<option value="">Seleccione...</option>';
+    foreach ($datos as $registro) {
+        
+            $lista .= '<option value="' . $registro['idTipoRecurso'] . '" selected>' . $registro['nombre'] . '</option>';
+        
     }
     return $lista;
 }

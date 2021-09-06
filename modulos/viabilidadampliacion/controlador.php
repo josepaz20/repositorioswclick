@@ -30,106 +30,102 @@ function controlador() {
         }
     }
 
-    $ampliacionRedOBJ = new AmpliacionRed();
+    $viabilidadAmpliacionOBJ = new ViabilidadRed();
     $datos = getDatos();
 
     switch ($evento) {
         case vINDEX:
-            $filtro = "WHERE ampliacion_red.estado != 'Eliminado'";
-            $ampliacionRedOBJ->getAmpliacionesRed();
-            setTablaAmpliaciones($ampliacionRedOBJ->registros);
+            $filtro = "WHERE viabilidad_ampliacion.estado != 'Eliminado'";
+            $viabilidadAmpliacionOBJ->getViabilidadesdeRed();
+            setTablaAmpliaciones($viabilidadAmpliacionOBJ->registros);
 
             if (array_key_exists('msg', $datos)) {
                 $datos['mensaje'] = getMensaje($datos['msg']);
             } else {
-                $datos['mensaje'] = $ampliacionRedOBJ->mensaje;
+                $datos['mensaje'] = $viabilidadAmpliacionOBJ->mensaje;
             }
             $datos['ordenar'] = 0;
             verVista($evento, $datos);
             break;
         case vREGISTRAR:
-            $ampliacionRedOBJ->getDepartamentos();
-            $datos['listaDepartamentos'] = setListaDepartamentos($ampliacionRedOBJ->registros);
+            $viabilidadAmpliacionOBJ->getDepartamentos();
+            $datos['listaDepartamentos'] = setListaDepartamentos($viabilidadAmpliacionOBJ->registros);
             echo verVistaAjax($evento, $datos);
             break;
         case INSERTAR:
 
             $msg = 0;
-            if ($ampliacionRedOBJ->registrar($datos)) {
+            if ($viabilidadAmpliacionOBJ->registrar($datos)) {
                 $msg = 1;
             }
-            header("location: /sw2click/modulos/ampliacionred/index?msg=$msg");
+            header("location: /sw2click/modulos/viabilidadampliacion/index?msg=$msg");
             break;
         case INSAVAN:
             $datos['idMcpo'] = 1;
             echo 1;
             $msg = 0;
-            if ($ampliacionRedOBJ->registraravance($datos)) {
-                $msg = 3;
+            if ($viabilidadAmpliacionOBJ->registraravance($datos)) {
+                $msg = 1;
             }
             header("location: /sw2click/modulos/ampliacionred/index?msg=$msg");
             break;
         case vDETALLE:
-            $infoAmpliacion = array();
-            if (array_key_exists('idAmpliacion', $datos)) {
-                $ampliacionRedOBJ->getAmpliacionRed($datos['idAmpliacion']);
-                $infoAmpliacion = $ampliacionRedOBJ->registros[0];
-                $infoAmpliacion['beneficioeconomico'] = number_format($infoAmpliacion['beneficioeconomico']);
+            $infoViabilidad = array();
+            if (array_key_exists('idViabilidad', $datos)) {
+                $viabilidadAmpliacionOBJ->getViabilidadRed($datos['idViabilidad']);
+                $infoViabilidad = $viabilidadAmpliacionOBJ->registros[0];
+                $infoViabilidad['costototal'] = number_format($infoViabilidad['costototal']);
             }
-            echo verVistaAjax($evento, $infoAmpliacion);
+            echo verVistaAjax($evento, $infoViabilidad);
             break;
         case vACTUALIZAR:
-            if (array_key_exists('idAmpliacion', $datos)) {
-                $ampliacionRedOBJ->getAmpliacionRed($datos['idAmpliacion']);
-                $datos = $ampliacionRedOBJ->registros[0];
-               // $datos['beneficioeconomico'] = number_format($datos['beneficioeconomico']);
-                $ampliacionRedOBJ->getDepartamentos();
-                $departamentos = $ampliacionRedOBJ->registros;
-                $datos['listaDepartamentos'] = setListaDepartamentos($departamentos, $datos['idDpto']);
-
-                $ampliacionRedOBJ->getMunicipios($datos['idDpto']);
-                $municipios = $ampliacionRedOBJ->registros;
-                $datos['listaMunicipios'] = setListaMunicipios($municipios, $datos['idMcpo']);
+            $infoViabilidad = array();
+            if (array_key_exists('idViabilidad', $datos)) {
+                $viabilidadAmpliacionOBJ->getactualizarViabilidadRed($datos['idViabilidad']);
+                $infoViabilidad = $viabilidadAmpliacionOBJ->registros[0];
+                //$infoViabilidad['costototal'] = number_format($infoViabilidad['costototal']);
             }
-            echo verVistaAjax($evento, $datos);
+            echo verVistaAjax($evento, $infoViabilidad);
             break;
         case vAVANCE:
             $infoAmpliacion = array();
             if (array_key_exists('idAmpliacion', $datos)) {
-                $ampliacionRedOBJ->getAvances($datos['idAmpliacion']);
-                $datos['tablaAvances'] = setListaAvances($ampliacionRedOBJ->registros);
-                
+                $viabilidadAmpliacionOBJ->getAvances($datos['idAmpliacion']);
+                $datos['tablaAvances'] = setListaAvances($viabilidadAmpliacionOBJ->registros);
             }
-            
             echo verVistaAjax($evento, $datos);
 
             break;
         case GET_MUNICIPIO:
             if (array_key_exists('idDpto', $datos)) {
-                $ampliacionRedOBJ->getMunicipios($datos['idDpto']);
+                $viabilidadAmpliacionOBJ->getMunicipios($datos['idDpto']);
             }
-            echo setListaMunicipios($ampliacionRedOBJ->registros);
+            echo setListaMunicipios($viabilidadAmpliacionOBJ->registros);
             break;
 
             header("location: /sw2click/modulos/ampliacionred/index");
             break;
-        case vVIABILIDAD:
+        case vVIABILIDAD:           
             $infoAmpliacion = array();
-            if (array_key_exists('idAmpliacion', $datos)) {
-                $ampliacionRedOBJ->getAmpliacionRed($datos['idAmpliacion']);
-                $infoAmpliacion = $ampliacionRedOBJ->registros[0];
+            if (array_key_exists('idViabilidad', $datos)) {                
+               //d$viabilidadAmpliacionOBJ->getAmpliacionRed($datos['idViabilidad']);
+                //$infoAmpliacion = $viabilidadAmpliacionOBJ->registros[0];
+                $viabilidadAmpliacionOBJ->getRecursos();
+                $departamentos = $viabilidadAmpliacionOBJ->registros;
+                $infoAmpliacion['listaRecursos'] = setListaRecursos($departamentos);
             }
             echo verVistaAjax($evento, $infoAmpliacion);
             break;
-        case UPDATE:
+        case UPDATE:            
             $msg = 0;
             // echo 4;
-
-            if ($ampliacionRedOBJ->setUpdate($datos, $datos['idAmpliacion'])) {
-                $msg = 2;
+            if (array_key_exists('idViabilidad', $_POST)) {                
+                if ($viabilidadAmpliacionOBJ->setUpdate($datos, $datos['idViabilidad'])) {                    
+                    $msg = 2;
+                }
             }
-
-            header("location: /sw2click/modulos/ampliacionred/index?msg=$msg");
+            
+            header("location: /sw2click/modulos/viabilidadampliacion/index?msg=$msg");
             break;
     }
 }
@@ -149,17 +145,19 @@ function getMensaje($msg = 0) {
             break;
         case 1:
             $mensaje .= '<div class="mensajes exito">
-                            <b>[ OK ]</b> -- Ampliación de red registrada en el Sistema.
+                            <b>[ OK ]</b> -- Solicitud de Cambio de Titular REGISTRADA en el Sistema.
                          </div>';
             break;
+        
         case 2:
             $mensaje .= '<div class="mensajes exito">
-                            <b>[ OK ]</b> -- Ampliación de red actualizada en el Sistema.
+                            <b>[ OK ]</b> -- Solicitud de Viabilidad actualizada  en el Sistema.
                          </div>';
             break;
+        
         case 3:
-            $mensaje .= '<div class="mensajes exito">
-                            <b>[ OK ]</b> -- Avance de red actualizada en el Sistema.
+            $mensaje .= '<div class="mensajes error">
+                            <b>[ ERROR ]</b> -- El nuevo titular NO fue registrado en plataforma de Incidentes.
                          </div>';
             break;
         case 4:
@@ -206,9 +204,17 @@ function getDatos() {
             $datos['fechahoraconfirm'] = $_POST['fechahoraconfirm'];
         if (array_key_exists('avance', $_POST))
             $datos['avance'] = $_POST['avance'];
+        if (array_key_exists('costototal', $_POST))
+            $datos['costototal'] = $_POST['costototal'];
+        if (array_key_exists('observaciones', $_POST))
+            $datos['observaciones'] = $_POST['observaciones'];
+        if (array_key_exists('idViabilidad', $_POST))
+            $datos['idViabilidad'] = $_POST['idViabilidad'];
     }else if ($_GET) {
         if (array_key_exists('idAmpliacion', $_GET))
             $datos['idAmpliacion'] = $_GET['idAmpliacion'];
+        if (array_key_exists('idViabilidad', $_GET))
+            $datos['idViabilidad'] = $_GET['idViabilidad'];
         if (array_key_exists('msg', $_GET))
             $datos['msg'] = $_GET['msg'];
         if (array_key_exists('tipoClienteBusq', $_GET))

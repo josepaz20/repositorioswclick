@@ -47,13 +47,19 @@ function controlador() {
                                     <a href="/sw2click/modulos/cambiostitular/index">
                                         <img src="/sw2click/public/img/validacionOTs.png" alt="Validacion de OTs" title="Validacion de recursos y materiales utilizados por OT.">
                                     </a>
-                                    <h3>Cambios de Titulars</h3>
+                                    <h3>Cambios de Titulares</h3>
                                  </div>';
             $datos['ampliacionesred'] = '<div class="modulos_principales">
                                     <a href="/sw2click/modulos/ampliacionred/index">
                                         <img src="/sw2click/public/img/validacionOTs.png" alt="Validacion de OTs" title="Validacion de recursos y materiales utilizados por OT.">
                                     </a>
                                     <h3>Ampliaciones de Red</h3>
+                                 </div>';
+            $datos['viabilidadampliacion'] = '<div class="modulos_principales">
+                                    <a href="/sw2click/modulos/viabilidadampliacion/index">
+                                        <img src="/sw2click/public/img/validacionOTs.png" alt="Validacion de OTs" title="Viabilidad de ampliación de red.">
+                                    </a>
+                                    <h3>Viabilidades de Ampliación</h3>
                                  </div>';
             setScriptAlertas($alertas);
             verVista($evento, $datos);

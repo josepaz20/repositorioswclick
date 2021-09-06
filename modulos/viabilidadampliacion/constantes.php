@@ -2,8 +2,8 @@
 
 // ********************** MODULO AMPLICION DE RED **********************
 
-define('MODULO', 'modulos/ampliacionred/');
-define('PUBLICO', 'public/html/ampliacionred/');
+define('MODULO', 'modulos/viabilidadampliacion/');
+define('PUBLICO', 'public/html/viabilidadampliacion/');
 
 # Vista
 define('vINDEX', 'index');

@@ -60,27 +60,27 @@ function setFormularioAvance(respuesta) {
     
 }
 
-function verDetalle(idAmpliacion) {
-    $.get('detalle', {idAmpliacion: idAmpliacion}, setFormulario);
+function verDetalle(idViabilidad) {
+    $.get('detalle', {idViabilidad: idViabilidad}, setFormulario);
     bloqueoAjax();
 }
 function verAvance(idAmpliacion) {
     $.get('avance', {idAmpliacion: idAmpliacion}, setFormularioAvance);
     bloqueoAjax();
 }
-function verActualizar(idAmpliacion) {    
-    $.get('actualizar', {idAmpliacion: idAmpliacion}, setFormulario);
+function verActualizar(idViabilidad) {    
+    $.get('actualizar', {idViabilidad: idViabilidad}, setFormulario);
     bloqueoAjax();
 }
-function verViabilidad() {
-    $.get('viabilidad', {}, setFormulario);
+function verViabilidad(idViabilidad) {
+    $.get('viabilidad', {idViabilidad:idViabilidad}, setFormulario);
     bloqueoAjax();
 }
 
 //---------------------------------------------------------------------------
 
 function validarRegistrar() {
-    if (confirm("   DESEA REGISTRAR ESTA AMPLIACION DE RED ? ")) {
+    if (confirm("   DESEA REGISTRAR ESTA VIABILIDAD DE AMPLIACIÓN?")) {
         bloqueoAjax();
         return true;
     } else {
@@ -89,7 +89,7 @@ function validarRegistrar() {
 }
 
 function validarEditar() {
-    if (confirm("   DESEA ACTUALIZAR ESTA AMPLIACION DE RED ? ")) {
+    if (confirm("   DESEA ACTUALIZAR ESTA VIABILIDAD DE AMPLIACIÓN? ")) {
         bloqueoAjax();
         return true;
     } else {

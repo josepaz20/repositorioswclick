@@ -307,7 +307,7 @@ class CambiosTitular extends AccesoDatos {
         $consultas = array();
         $consultas[] = "INSERT INTO nuevo_titular VALUES(NULL, $idDpto, $idMcpo, '$tipopersona', '$identificacion', '$nombres', '$apellidos', '', '', '', '$direccion', $estrato, '$barrio', '$celular', '$email', '$registradopor', '', '$fechahorareg', '0000-00-00 00:00:00')";
         $consultas[] = "INSERT INTO cambio_titular VALUES(NULL, {ultimoID}, $idServicio, 'Registrado', '$formato', '$registradopor', '', '', '$fechahorareg', '0000-00-00 00:00:00', '0000-00-00 00:00:00')";
-//        print_r($consultas);
+        //print_r($consultas);
         return $this->ejecutarTransaccion($consultas);
     }
 

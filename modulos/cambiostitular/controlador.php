@@ -38,7 +38,7 @@ function controlador() {
 
     switch ($evento) {
         case vINDEX:
-            $filtro = "WHERE cambio_titular.estado != 'Eliminado'";
+            $filtro = "WHERE cambio_titular.estado != 'Registrado'";
             $CambiosTitularOBJ->getCambiosTitular($filtro);
             setTablaCambiosTitular($CambiosTitularOBJ->registros);
             if (array_key_exists('msg', $datos)) {

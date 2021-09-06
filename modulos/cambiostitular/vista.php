@@ -61,7 +61,7 @@ function setTablaCambiosTitular($datos = array()) {
         $tablaCambios .= '<td>' . $registro['idCambioTitular'] . '</td>';
         $tablaCambios .= '<td>';
         $tablaCambios .= '<a href="javascript:verDetalle(' . $registro['idCambioTitular'] . ')" title="VER DETALLE"><i class="fa fa-eye"></i></a>';
-        if ($registro['estado'] == 'Registrado') {
+        if ($registro['estado'] == 'Eliminado') {
             if (in_array($_SESSION['ID_USUARIO'], $permisoEliminar)) {
                 $tablaCambios .= '&nbsp;&nbsp;';
                 $tablaCambios .= '<a href="javascript:verEliminar(' . $registro['idCambioTitular'] . ')" title="VER ELIMINAR"><i class="fa fa-trash"></i></a>';
